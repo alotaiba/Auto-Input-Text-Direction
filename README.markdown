@@ -1,9 +1,21 @@
-Maybe you have seen this effect already used by Google, espicially in [Google Translate][1], and [YouTube][2]. Whenever you change the input language on forms input, for example, to Arabic, and start typing, the direction of the text field changes to match the language natural direction.
+#    Auto Input Text Direction
 
-Auto Input Text Direction is a little JavaScript function that I wrote, it detects the input language on html forms, and changes the input direction based on the language, i.e., right to left for the Arabic language, Thus, emulating Google's effect.
+A jQuery plugin that gives your input controls the ability to change direction according to the input language by the user, so when he writes Arabic text the input will change its text direction to `rtl` (right to left), and when he writes in any other langugage the input will change its text direction to `ltr` (left to right).
 
-For more information, please visit the [article][3] where I explain its functionality.
+Arabic is not the only language that is written from right to left, you can check this list for [right to left languages](http://en.wikipedia.org/wiki/Right-to-left), and the code can be easily extended to support these languages.
 
- [1]: http://translate.google.com/
- [2]: http://www.youtube.com/
- [3]: http://www.almashroo.com/1810/%D8%AA%D8%AD%D9%88%D9%8A%D9%84-%D8%A7%D8%AA%D8%AC%D8%A7%D9%87-%D8%A7%D9%84%D9%86%D8%B5-%D8%AA%D9%84%D9%82%D8%A7%D8%A6%D9%8A%D8%A7-%D8%AD%D8%B3%D8%A8-%D8%A7%D9%84%D9%84%D8%BA%D8%A9/
+This project is a fork from the original project [here]() that introduces the following changes:
+*    Direction will be changed according to the number of characters, so if the Arabic characters are more than other characters the text will change its direction to `rtl`, but if the Arabic characters are less than other characters the text will be `ltr`.
+*    A jQuery plugin that makes it easy to use this library with your JavaScript code:
+
+```javascript
+$('input.bidirectional').automaticDirection();
+```
+
+#    License
+This work is licensed under [GNU General Public License v3](http://www.gnu.org/licenses/gpl.txt).
+
+#    Contact
+*    Abd Allah Diab (mpcabd)
+*    Email: 	mpcabd {AT} G Mail (dot) COM
+*    Blog:	http://mpcabd.igeex.biz

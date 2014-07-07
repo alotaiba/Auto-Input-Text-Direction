@@ -16,6 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+ /**
+ * Converted to a jQuery plugin by Abd Allah Diab
+ * http://mpcabd.igeex.biz
+ * mpcabd@gmail.com
+ */
 
 //Arabic - Range:
 //0600–06FF
@@ -42,29 +48,31 @@ var controlChars = '\u0000-\u0020';
 controlChars 	+= '\u2000-\u200D';
 
 //Start Regular Expression magic
-var reRTL     = new RegExp('^[' + controlChars + ']*[' + rtlChars + ']');
-var reControl = new RegExp('^[' + controlChars + ']*$');
+var reRTL     = new RegExp('[' + rtlChars + ']', 'g');
+var reNotRTL = new RegExp('[^' + rtlChars + controlChars + ']', 'g');
 
-function detectDirection(input)
-{
-	//Get the value of the input text
-	var value = input.value;
+$.fn.automaticDirection = function () {
+    for (var i = 0; i < this.length; i++) {
+        var value = $(this[i]).val();
+        if (value == '')
+            value = $(this[i]).text();
+        if (value != '') {
+            var rtls = value.match(reRTL);
+            if (rtls != null)
+                rtls = rtls.length;
+            else
+                rtls = 0;
 
-	//Change the direction to rtl if the value matches one of the Arabic characters
-	if ( value.match(reRTL) )
-	{
-		input.dir = 'rtl';
-	}
+            var notrtls = value.match(reNotRTL);
+            if (notrtls != null)
+                notrtls = notrtls.length;
+            else
+                notrtls = 0;
 
-	//Don't do anything for control and punctuation characters
-	else if( value.match(reControl) )
-	{
-		return false;
-	}
-
-	//Change the direction to ltr for any other character that is not Arabic, or control.
-	else
-	{
-		input.dir = 'ltr';
-	}
-}
+            if (rtls > notrtls)
+                $(this[i]).css('direction', 'rtl').css('text-align', 'right');
+            else
+                $(this[i]).css('direction', 'ltr').css('text-align', 'left');
+        }
+    }
+};
